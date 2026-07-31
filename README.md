@@ -1,3 +1,5 @@
+[English](README_EN.md) | 简体中文
+
 # LibreOffice 批量打印与 UNO 扩展插件
 
 ## 1. 项目介绍
@@ -46,7 +48,6 @@ python3 -m venv venv
 source venv/bin/activate
 
 # 3. 安装依赖
-# 注意：PyMuPDF 已包含底层 mupdf 绑定，无需单独安装 fitz 或 mupdf
 pip install pyinstaller cups PySide6 PyMuPDF python-magic
 ```
 

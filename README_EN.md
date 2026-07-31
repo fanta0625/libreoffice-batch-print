@@ -1,6 +1,4 @@
-Here is the English translation of your README, maintaining the professional tone and technical accuracy of the original document.
-
----
+English | [简体中文](README.md)
 
 # LibreOffice Batch Printing & UNO Extension Plugin
 
@@ -50,7 +48,6 @@ python3 -m venv venv
 source venv/bin/activate
 
 # 3. Install dependencies
-# Note: PyMuPDF includes the underlying mupdf bindings; no need to install fitz or mupdf separately
 pip install pyinstaller cups PySide6 PyMuPDF python-magic
 ```
 
