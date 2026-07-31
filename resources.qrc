@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>resources/add.png</file>
+        <file>resources/folder.png</file>
+        <file>resources/dustbin.png</file>
+        <file>resources/print.png</file>
+        <file>resources/setting.png</file>
+        <file>resources/arrow_down.png</file>
+        <file>resources/logo.png</file>
+    </qresource>
+</RCC>

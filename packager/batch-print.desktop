@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Service
+MimeType=application/pdf;application/ofd;application/vnd.oasis.opendocument.graphics;application/msword;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.oasis.opendocument.text;image/jpeg;image/png;
+Actions=batchPrint
+
+[Desktop Action batchPrint]
+Name=批量打印
+Name[zh_CN]=批量打印
+Icon=printer
+Exec=/usr/lib/libreoffice/program/lobatchprint %F
+X-KDE-SelectCount=2-

@@ -1,0 +1,1 @@
+Batch print multiple documents, supporting PDF and Word formats.

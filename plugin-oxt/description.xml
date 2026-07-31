@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://openoffice.org/extensions/description/2006"
+    >
+    <version value="1.0.0"/>
+    <identifier value="com.loongoffice.batchprint"/> <!-- 必须全局唯一 -->
+    <display-name>
+        <name lang="en">LoongOffice Batch Print Extension</name>
+        <name lang="zh">LoongOffice批量打印扩展</name>
+    </display-name>
+    <icon>
+        <default xlink:href="description/batchprint.png"/>
+    </icon>
+    <extension-description>
+        <src lang="en-US" xlink:href="description/description-en-US.txt"/>
+        <src lang="zh-CN" xlink:href="description/description-zh-CN.txt"/>
+    </extension-description>
+    <dependencies xmlns:lo="http://libreoffice.org/extensions/description/2011">
+        <lo:LibreOffice-minimal-version xmlns:d="http://openoffice.org/extensions/description/2006" d:name="LibreOffice 7.4" value="7.4"/>
+    </dependencies>
+    <registration>
+        <component>BatchPrintExtension.components</component>
+    </registration>
+</description>

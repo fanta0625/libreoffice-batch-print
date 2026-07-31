@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest:manifest 
+    xmlns:manifest="http://openoffice.org/2001/manifest">
+    
+    <!-- 必须包含 description.xml -->
+    <manifest:file-entry 
+        manifest:media-type="application/vnd.sun.star.package-description"
+        manifest:full-path="description.xml"/>
+    
+    <!-- 必须包含 Addons.xcu -->
+    <manifest:file-entry 
+        manifest:media-type="application/vnd.sun.star.configuration-data"
+        manifest:full-path="Addons.xcu"/>
+    
+    <!-- 主入口必须声明为 uno-component -->
+    <manifest:file-entry 
+        manifest:media-type="application/vnd.sun.star.uno-component;type=Python"
+        manifest:full-path="BatchPrintExtension.py"/>
+</manifest:manifest>
