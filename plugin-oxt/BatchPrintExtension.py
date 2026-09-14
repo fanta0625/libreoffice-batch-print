@@ -8,6 +8,14 @@ import os
 import subprocess
 import urllib.parse
 from com.sun.star.task import XJobExecutor
+
+# The LibreOffice Python loader executes this component file directly and does
+# not add the extension directory to sys.path.  Make sibling modules such as
+# config.py importable for bundled and manually installed OXT packages.
+extension_dir = os.path.dirname(os.path.abspath(__file__))
+if extension_dir not in sys.path:
+    sys.path.insert(0, extension_dir)
+
 import config
 
 class BatchPrintExtension(unohelper.Base, XJobExecutor):

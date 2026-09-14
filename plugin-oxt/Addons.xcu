@@ -8,7 +8,7 @@
          <node oor:name="com.loongoffice.batchprint.BatchPrintExtension" oor:op="replace">
             <node oor:name="N001" oor:op="replace">
                <prop oor:name="MergeContext" oor:type="xs:string">
-                  <value>com.sun.star.text.TextDocument,com.sun.star.drawing.DrawingDocument，com.sun.star.presentation.PresentationDocument</value>
+                  <value>com.sun.star.text.TextDocument,com.sun.star.drawing.DrawingDocument,com.sun.star.presentation.PresentationDocument,com.sun.star.sheet.SpreadsheetDocument</value>
                </prop>
                <prop oor:name="MergePoint" oor:type="xs:string">
                   <value>.uno:PickList\.uno:Print</value>
