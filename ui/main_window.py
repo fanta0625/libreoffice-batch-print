@@ -577,7 +577,7 @@ class MainWindow(QMainWindow):
 
     def update_range_edit(self, row, text):
         
-        if not text or text == "1-?":
+        if not text or text in ("1-?", "Err"):
             return
         
         file_item = self.file_table.item(row, 1).data(Qt.UserRole)
@@ -629,7 +629,10 @@ class MainWindow(QMainWindow):
                         range_edit.setText(f"1-{page_count}")
                         range_edit.setEnabled(True)
                     else:
+                        current_file_item.page_range = current_file_item.params.page_range = ""
+                        was_blocked = range_edit.blockSignals(True)
                         range_edit.setText("Err")
+                        range_edit.blockSignals(was_blocked)
                         range_edit.setEnabled(False)
                         # range_edit.setStyleSheet("border: 1px solid #eee; background: #fff; color: #999;")    
                 # 刷新底部状态栏统计

@@ -8,11 +8,11 @@ import cups
 import fitz
 import magic
 import zipfile
-import xml.etree.ElementTree as ET
 import subprocess
 from config.settings import PAPER_SIZES,SUPPORTED_EXTENSIONS,ALLOWED_MIMES,FLAT_FILE_TYPES
 from com.sun.star.awt import Size
 from utils.i18n import _
+from utils.ofd_page_count import get_ofd_page_count
 class PaperSizeHelper:
 
     @staticmethod
@@ -187,39 +187,7 @@ class DocumentHelper:
 
     @staticmethod
     def get_ofd_page_count(ofd_path):
-        try:
-            with zipfile.ZipFile(ofd_path, 'r') as zf:
-                # 读取 OFD.xml
-                ofd_xml = zf.read('OFD.xml')
-                root = ET.fromstring(ofd_xml)
-                ns = {'ofd': 'http://www.ofdspec.org/2016'}
-
-                # 查找 <ofd:DocBody> 元素
-                doc_body = root.find('.//ofd:DocBody', ns)
-                if doc_body is not None:
-                    # 在 <ofd:DocBody> 下查找 <ofd:DocRoot> 子元素
-                    doc_root_element = doc_body.find('ofd:DocRoot', ns)
-                    if doc_root_element is not None:
-                        # 获取 <ofd:DocRoot> 元素的文本内容
-                        doc_root_path = doc_root_element.text
-                        
-                        if doc_root_path:
-                            # 读取具体的 Document.xml 文件
-                            doc_content = zf.read(doc_root_path)
-                            doc_root_xml = ET.fromstring(doc_content)
-                            
-                            # 获取所有 <ofd:Page> 元素并返回数量
-                            pages = doc_root_xml.findall('.//ofd:Page', ns)
-                            return len(pages)
-                
-                # 直接统计 Pages 目录下的文件数
-                page_files = [f for f in zf.namelist() if f.startswith('Pages/') and f.endswith('.xml')]
-                if page_files:
-                    return len(page_files)
-                    
-        except Exception as e:
-            print(f"Error reading OFD: {e}")
-        return -1
+        return get_ofd_page_count(ofd_path)
     @staticmethod
     def get_project_font_path():
         """
