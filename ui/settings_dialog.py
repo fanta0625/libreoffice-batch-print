@@ -45,6 +45,7 @@ class SettingsDialog(QDialog):
         self.setMinimumSize(1000, 650)
         self._scale_edit_processed = False
         self.previewer = None
+        self._skip_first_tab_change=True
         
         self.grouped_data = {t: [] for t in FLAT_FILE_TYPES}
         for item in self.all_items:
@@ -151,7 +152,9 @@ class SettingsDialog(QDialog):
         count = len(files_in_type)
         if count > 0:
             first_item = files_in_type[0]
-            self.current_row_id = first_item.row_id
+            if not self._skip_first_tab_change:
+                self.current_row_id = first_item.row_id
+            self._skip_first_tab_change = False
             self.current_type = current_type
             logger.debug(f"Context updated to: Type={current_type}, RowID={self.current_row_id}, File={first_item.file_path}")
         self.btn_global_apply_all.setText(_("SettingsDialog","btn_apply_current_type",type=current_type,count=count)) 
