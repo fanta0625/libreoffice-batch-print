@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-MimeType=application/pdf;application/ofd;application/vnd.oasis.opendocument.graphics;application/msword;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.oasis.opendocument.text;image/jpeg;image/png;
+MimeType=application/pdf;application/ofd;application/vnd.oasis.opendocument.graphics;application/msword;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.oasis.opendocument.text;image/jpeg;image/png;application/vnd.ms-powerpoint;application/vnd.openxmlformats-officedocument.presentationml.presentation;application/vnd.oasis.opendocument.presentation;application/vnd.kingsoft.presentation;application/wps-office.dps;application/vnd.ms-excel;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.oasis.opendocument.spreadsheet;
 Actions=batchPrint
 
 [Desktop Action batchPrint]
