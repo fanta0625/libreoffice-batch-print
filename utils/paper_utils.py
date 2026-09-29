@@ -184,6 +184,23 @@ class DocumentHelper:
             return False
             
         return False
+    @staticmethod
+    def find_by_local_name(parent, name):
+        """在 parent 的所有后代中查找第一个本地名匹配的元素"""
+        for elem in parent.iter():
+            tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+            if tag == name:
+                return elem
+        return None
+    @staticmethod
+    def findall_by_local_name(parent, name):
+        """在 parent 的所有后代中查找所有本地名匹配的元素"""
+        result = []
+        for elem in parent.iter():
+            tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
+            if tag == name:
+                result.append(elem)
+        return result
 
     @staticmethod
     def get_ofd_page_count(ofd_path):
@@ -192,31 +209,16 @@ class DocumentHelper:
                 # 读取 OFD.xml
                 ofd_xml = zf.read('OFD.xml')
                 root = ET.fromstring(ofd_xml)
-                ns = {'ofd': 'http://www.ofdspec.org/2016'}
 
-                # 查找 <ofd:DocBody> 元素
-                doc_body = root.find('.//ofd:DocBody', ns)
+                doc_body = DocumentHelper.find_by_local_name(root, 'DocBody')
                 if doc_body is not None:
-                    # 在 <ofd:DocBody> 下查找 <ofd:DocRoot> 子元素
-                    doc_root_element = doc_body.find('ofd:DocRoot', ns)
-                    if doc_root_element is not None:
-                        # 获取 <ofd:DocRoot> 元素的文本内容
-                        doc_root_path = doc_root_element.text
-                        
-                        if doc_root_path:
-                            # 读取具体的 Document.xml 文件
-                            doc_content = zf.read(doc_root_path)
-                            doc_root_xml = ET.fromstring(doc_content)
-                            
-                            # 获取所有 <ofd:Page> 元素并返回数量
-                            pages = doc_root_xml.findall('.//ofd:Page', ns)
-                            return len(pages)
-                
-                # 直接统计 Pages 目录下的文件数
-                page_files = [f for f in zf.namelist() if f.startswith('Pages/') and f.endswith('.xml')]
-                if page_files:
-                    return len(page_files)
-                    
+                    doc_root_element = DocumentHelper.find_by_local_name(doc_body, 'DocRoot')
+                    if doc_root_element is not None and doc_root_element.text:
+                        doc_root_path = doc_root_element.text.strip()
+                        doc_content = zf.read(doc_root_path)
+                        doc_root_xml = ET.fromstring(doc_content)
+                        pages = DocumentHelper.findall_by_local_name(doc_root_xml, 'Page')
+                        return len(pages)
         except Exception as e:
             print(f"Error reading OFD: {e}")
         return -1
