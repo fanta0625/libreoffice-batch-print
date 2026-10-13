@@ -32,6 +32,7 @@
         "message_print_failed":"Print submission failed",
         "message_print_cancelled":"Cancelled by user",
         "messgae_print_timeout":"⏳ Print submission timed out. Please check the printer.",
+        "message_printing":"Printing...",
         "message_unknown_pages_warning": "{count} files' page count is not yet available.\nContinue printing? (Will print all pages)",
         "message_title_warning": "Warning",
         "message_title_confirm": "Confirm Print",

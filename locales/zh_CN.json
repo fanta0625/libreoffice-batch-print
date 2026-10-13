@@ -32,6 +32,7 @@
         "message_print_failed":"打印提交失败",
         "message_print_cancelled":"⚠️ 用户已取消",
         "messgae_print_timeout":"⏳ 打印提交超时，请检查打印机",
+        "message_printing":"打印中...",
         "message_unknown_pages_warning": "有 {count} 个文件的页码尚未获取完成。\n是否继续打印？ (将打印全部页面)",
         "message_title_warning": "警告",
         "message_title_confirm": "确认打印",

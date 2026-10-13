@@ -44,6 +44,7 @@ class MainWindow(QMainWindow):
         self.pending_rows = []          # 待处理的行号列表
         self.is_processing = False      # 是否正在处理（锁）
         self.current_timer = None       # 存储当前活跃的定时器，方便清理
+        self._pending_print_count = 0   # 打印尚未回终态的任务数
 
         # 数据模型
         self.file_items: list[FileItem] = []
@@ -762,6 +763,7 @@ class MainWindow(QMainWindow):
         
         if CustomMessageBox(QMessageBox.Icon.Question,_("MainWindow", "message_title_confirm"),msg
             ,QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.No,self).exec() == QMessageBox.StandardButton.Yes:
+            self._pending_print_count = len(selected_items)
             self.btn_print.setEnabled(False)
             self.btn_print.setText(_("MainWindow", "message_printing"))
             # 执行打印逻辑
@@ -788,8 +790,12 @@ class MainWindow(QMainWindow):
                 
                 status_item.setFont(self.font())
 
-        self.btn_print.setEnabled(True)
-        self.btn_print.setText(_("MainWindow", "btn_print"))
+        if result.status in (TaskStatus.SUCCESS, TaskStatus.FAILED, TaskStatus.CANCELLED):
+            if self._pending_print_count > 0:
+                self._pending_print_count -= 1
+                if self._pending_print_count == 0:
+                    self.btn_print.setEnabled(True)
+                    self.btn_print.setText(_("MainWindow", "btn_print"))
 
     def add_files_from_external(self, file_paths):
         logger.info(f"Received {len(file_paths)} external files via IPC")
