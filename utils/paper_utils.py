@@ -8,11 +8,11 @@ import cups
 import fitz
 import magic
 import zipfile
-import xml.etree.ElementTree as ET
 import subprocess
 from config.settings import PAPER_SIZES,SUPPORTED_EXTENSIONS,ALLOWED_MIMES,FLAT_FILE_TYPES
 from com.sun.star.awt import Size
 from utils.i18n import _
+from utils.ofd_page_count import get_ofd_page_count
 class PaperSizeHelper:
 
     @staticmethod
@@ -184,44 +184,10 @@ class DocumentHelper:
             return False
             
         return False
-    @staticmethod
-    def find_by_local_name(parent, name):
-        """在 parent 的所有后代中查找第一个本地名匹配的元素"""
-        for elem in parent.iter():
-            tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
-            if tag == name:
-                return elem
-        return None
-    @staticmethod
-    def findall_by_local_name(parent, name):
-        """在 parent 的所有后代中查找所有本地名匹配的元素"""
-        result = []
-        for elem in parent.iter():
-            tag = elem.tag.split('}')[-1] if '}' in elem.tag else elem.tag
-            if tag == name:
-                result.append(elem)
-        return result
 
     @staticmethod
     def get_ofd_page_count(ofd_path):
-        try:
-            with zipfile.ZipFile(ofd_path, 'r') as zf:
-                # 读取 OFD.xml
-                ofd_xml = zf.read('OFD.xml')
-                root = ET.fromstring(ofd_xml)
-
-                doc_body = DocumentHelper.find_by_local_name(root, 'DocBody')
-                if doc_body is not None:
-                    doc_root_element = DocumentHelper.find_by_local_name(doc_body, 'DocRoot')
-                    if doc_root_element is not None and doc_root_element.text:
-                        doc_root_path = doc_root_element.text.strip()
-                        doc_content = zf.read(doc_root_path)
-                        doc_root_xml = ET.fromstring(doc_content)
-                        pages = DocumentHelper.findall_by_local_name(doc_root_xml, 'Page')
-                        return len(pages)
-        except Exception as e:
-            print(f"Error reading OFD: {e}")
-        return -1
+        return get_ofd_page_count(ofd_path)
     @staticmethod
     def get_project_font_path():
         """
