@@ -204,7 +204,7 @@ class TaskManager(QObject):
             return
 
         logger.info(f"Create a print task: {os.path.basename(file_path)}")
-        self.task_status_changed.emit(TaskResult(file_path, TaskStatus.WAITING, ("MainWindow","message_in_queue")))
+        self.task_status_changed.emit(TaskResult(file_path, TaskStatus.WAITING, _("MainWindow","message_in_queue")))
 
         def _print():
             success, msg = self.lo_manager.print_document(file_path, options)
